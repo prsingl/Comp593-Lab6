@@ -64,9 +64,10 @@ def installer_ok(installer_data, expected_sha256):
     Returns:
         bool: True if SHA-256 of VLC installer matches expected SHA-256. False if not.
     """    
-    # TODO: Step 3
+    # Step 3
     # Hint: See example code in lab instructions entitled "Computing the Hash Value of a Response Message Body"
-    return
+    sha256_installer = hb.sha256(installer_data).hexdigest()
+    return  sha256_installer == expected_sha256
 
 def save_installer(installer_data):
     """Saves the VLC installer to a local directory.
@@ -74,12 +75,17 @@ def save_installer(installer_data):
     Args:
         installer_data (bytes): VLC installer file binary data
 
-    Returns:
+    Returns:    
         str: Full path of the saved VLC installer file
     """
-    # TODO: Step 4
+    #  Step 4
     # Hint: See example code in lab instructions entitled "Downloading a Binary File"
-    return
+    temp_file = os.getenv("TEMP")
+    installer_path = os.path.join(temp_file, 'vlc-3.0.17.4-win64.exe')
+    with open(installer_path, 'wb')as file : 
+        file.write(installer_data)
+
+    return installer_path
 
 def run_installer(installer_path):
     """Silently runs the VLC installer.
@@ -87,19 +93,26 @@ def run_installer(installer_path):
     Args:
         installer_path (str): Full path of the VLC installer file
     """    
-    # TODO: Step 5
+    # Step 5
     # Hint: See example code in lab instructions entitled "Running the VLC Installer"
+    installer_path = r'C:\temp\vlc-3.0.17.4-win64.exe'
+    subprocess.run([installer_path, '/L=1033', '/S'], shell=True)
+
+
     return
     
 def delete_installer(installer_path):
-    # TODO: Step 6
-    # Hint: See example code in lab instructions entitled "Running the VLC Installer"
     """Deletes the VLC installer file.
 
     Args:
         installer_path (str): Full path of the VLC installer file
     """
-    return
+    #  Step 6
+    # Hint: See example code in lab instructions entitled "Running the VLC Installer"
+   
+    os.remove(installer_path)
+    
+    return  
 
 if __name__ == '__main__':
     main()
